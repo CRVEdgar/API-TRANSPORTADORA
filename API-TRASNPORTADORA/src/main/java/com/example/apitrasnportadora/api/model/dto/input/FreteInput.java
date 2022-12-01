@@ -1,5 +1,6 @@
 package com.example.apitrasnportadora.api.model.dto.input;
 
+import com.example.apitrasnportadora.api.model.dto.input.referenceId.CidadeIdInput;
 import com.example.apitrasnportadora.api.model.dto.input.referenceId.ClientIdInput;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -21,12 +22,12 @@ public class FreteInput {
 
     @Valid
     @NotNull
-    private ClientIdInput cidade;
+    private CidadeIdInput cidade;
 
     public FreteInput() {
     }
 
-    public FreteInput(String descricao, Double peso, Double valor, ClientIdInput cliente, ClientIdInput cidade) {
+    public FreteInput(String descricao, Double peso, Double valor, ClientIdInput cliente, CidadeIdInput cidade) {
         this.descricao = descricao;
         this.peso = peso;
         this.valor = valor;
@@ -66,11 +67,11 @@ public class FreteInput {
         this.cliente = cliente;
     }
 
-    public ClientIdInput getCidade() {
+    public CidadeIdInput getCidade() {
         return cidade;
     }
 
-    public void setCidade(ClientIdInput cidade) {
+    public void setCidade(CidadeIdInput cidade) {
         this.cidade = cidade;
     }
 }
