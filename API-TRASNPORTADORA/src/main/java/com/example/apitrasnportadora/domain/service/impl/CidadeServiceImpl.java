@@ -1,5 +1,6 @@
 package com.example.apitrasnportadora.domain.service.impl;
 
+import com.example.apitrasnportadora.core.excetion.NegocioException;
 import com.example.apitrasnportadora.domain.model.Cidade;
 import com.example.apitrasnportadora.domain.repository.CidadeRepository;
 import com.example.apitrasnportadora.domain.service.CidadeService;
@@ -18,9 +19,10 @@ public class CidadeServiceImpl implements CidadeService {
     public Cidade save(Cidade cidade) {
         if(cidade!=null){
             return repository.save(cidade);
+        }else{
+            throw new NegocioException("DADOS DA CIDADE NAO PODE SER NULO");
         }
-        //TODO: EXCEPTION
-        return null;
+
     }
 
     @Override
