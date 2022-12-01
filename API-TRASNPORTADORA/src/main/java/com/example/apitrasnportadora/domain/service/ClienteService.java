@@ -5,4 +5,6 @@ import com.example.apitrasnportadora.domain.model.Cliente;
 public interface ClienteService {
 
     Cliente buscarPorTelefone(String telefone);
+
+    Cliente salvar(Cliente cliente);
 }

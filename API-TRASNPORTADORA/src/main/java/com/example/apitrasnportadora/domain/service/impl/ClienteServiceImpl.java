@@ -18,4 +18,9 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente buscarPorTelefone(String telefone) {
         return repository.findByTelefone(telefone).orElseThrow(() -> new RuntimeException("telefone informado nao encontrado"));
     }
+
+    @Override
+    public Cliente salvar(Cliente cliente) {
+        return repository.save(cliente);
+    }
 }

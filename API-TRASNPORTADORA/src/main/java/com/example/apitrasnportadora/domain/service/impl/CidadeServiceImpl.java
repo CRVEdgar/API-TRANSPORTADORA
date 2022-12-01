@@ -30,6 +30,6 @@ public class CidadeServiceImpl implements CidadeService {
 
     @Override
     public Cidade findByName(String name) {
-        return null;
+        return repository.findByNome(name).orElseThrow(() -> new RuntimeException("nome informado nao encontrado"));
     }
 }
