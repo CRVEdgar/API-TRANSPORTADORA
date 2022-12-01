@@ -1,5 +1,6 @@
 package com.example.apitrasnportadora.domain.service.impl;
 
+import com.example.apitrasnportadora.core.excetion.CidadeNaoEncontradoException;
 import com.example.apitrasnportadora.core.excetion.NegocioException;
 import com.example.apitrasnportadora.domain.model.Cidade;
 import com.example.apitrasnportadora.domain.repository.CidadeRepository;
@@ -27,11 +28,11 @@ public class CidadeServiceImpl implements CidadeService {
 
     @Override
     public Cidade findById(Long id) {
-        return null;
+        return repository.findById(id).orElseThrow(() -> new CidadeNaoEncontradoException( id ));
     }
 
     @Override
     public Cidade findByName(String name) {
-        return repository.findByNome(name).orElseThrow(() -> new RuntimeException("nome informado nao encontrado"));
+        return repository.findByNome(name).orElseThrow(() -> new CidadeNaoEncontradoException("NÃO EXISTE UM CADASTRO DE CIDADE COM NOME: " + name ));
     }
 }

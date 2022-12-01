@@ -1,5 +1,6 @@
 package com.example.apitrasnportadora.domain.service;
 
+import com.example.apitrasnportadora.core.excetion.CidadeNaoEncontradoException;
 import com.example.apitrasnportadora.core.excetion.NegocioException;
 import com.example.apitrasnportadora.domain.model.Cidade;
 import com.example.apitrasnportadora.domain.repository.CidadeRepository;
@@ -33,18 +34,16 @@ public class CidadeServiceTest {
 
     Cidade cidade;
 
+    private static final String SAO_LUIS = "São Luis";
+
     @BeforeEach
     public void init(){
-         cidade = new Cidade();
+         cidade = generateCidade();
     }
 
     @Test
     @DisplayName("deve salvar e devolver um registro de Cidade")
     public void save(){
-        ReflectionTestUtils.setField(cidade, "id", 1L);
-        cidade.setNome("Sao Luis");
-        cidade.setTaxa(30.50);
-        cidade.setUF("MA");
 
         when(repository.save(any(Cidade.class)))
                 .thenReturn(cidade);
@@ -57,7 +56,7 @@ public class CidadeServiceTest {
     }
 
     @Test
-    @DisplayName("deve lancar uma exception")
+    @DisplayName("deve lancar uma exception ao salvar uma cidade")
     public void ThrowExceptionInSave(){
         Cidade cidadeNull = null;
 
@@ -67,5 +66,62 @@ public class CidadeServiceTest {
 
     }
 
+    @Test
+    @DisplayName("deve encontrar uma cidade ao buscar por nome")
+    public void buscarCidadePorNome(){
+        Cidade saoLuis = generateCidade();
+
+        when(repository.findByNome(anyString()))
+                .thenReturn(Optional.of(saoLuis));
+
+        Cidade cidaderesponse = service.findByName(anyString());
+
+        assertEquals(SAO_LUIS, cidaderesponse.getNome());
+    }
+
+    @Test
+    @DisplayName("deve lancar uma exception ao buscar por name")
+    public void ThrowExceptionInFindName(){
+
+        assertThatExceptionOfType(CidadeNaoEncontradoException.class).isThrownBy(() ->
+                        service.findByName("Sao Paulo"))
+                .withMessageContaining("NÃO EXISTE UM CADASTRO DE CIDADE COM NOME");
+
+    }
+
+    @Test
+    @DisplayName("deve encontrar uma cidade ao buscar por id")
+    public void buscarCidadePorId(){
+
+
+        when(repository.findById(anyLong()))
+                .thenReturn(Optional.of(cidade));
+
+        Cidade cidaderesponse = service.findById( anyLong() );
+
+        assertEquals(SAO_LUIS, cidaderesponse.getNome());
+        assertEquals(1L, cidaderesponse.getId());
+
+    }
+
+    @Test
+    @DisplayName("deve lancar uma exception ao buscar por id")
+    public void ThrowExceptionInFindId(){
+        Long idINvalid = 300L;
+        assertThatExceptionOfType(CidadeNaoEncontradoException.class).isThrownBy(() ->
+                        service.findById(idINvalid))
+                .withMessage("NÃO EXISTE UM CADASTRO DE CIDADE COM CÓDIGO " +idINvalid);
+    }
+
+    private Cidade generateCidade(){
+
+        Cidade saoLuis = new Cidade();
+        ReflectionTestUtils.setField(saoLuis, "id", 1L);
+        saoLuis.setNome(SAO_LUIS);
+        saoLuis.setTaxa(30.50);
+        saoLuis.setUF("MA");
+
+        return saoLuis;
+    }
 
 }
