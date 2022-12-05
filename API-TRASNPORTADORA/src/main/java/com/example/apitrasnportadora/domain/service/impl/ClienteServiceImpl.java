@@ -1,5 +1,6 @@
 package com.example.apitrasnportadora.domain.service.impl;
 
+import com.example.apitrasnportadora.core.excetion.ClienteNaoEncontradoException;
 import com.example.apitrasnportadora.domain.model.Cliente;
 import com.example.apitrasnportadora.domain.repository.ClienteRepository;
 import com.example.apitrasnportadora.domain.service.ClienteService;
@@ -16,7 +17,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente buscarPorTelefone(String telefone) {
-        return repository.findByTelefone(telefone).orElseThrow(() -> new RuntimeException("telefone informado nao encontrado"));
+        return repository.findByTelefone(telefone).orElseThrow(() -> new ClienteNaoEncontradoException("telefone informado nao encontrado"));
     }
 
     @Override

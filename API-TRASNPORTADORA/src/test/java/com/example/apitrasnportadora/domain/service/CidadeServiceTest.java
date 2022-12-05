@@ -12,11 +12,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.List;
 import java.util.Optional;
 
+import static com.example.apitrasnportadora.builderObjects.CidadeBuilder.*;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -38,7 +37,7 @@ public class CidadeServiceTest {
 
     @BeforeEach
     public void init(){
-         cidade = generateCidade();
+         cidade = cidadeMock();
     }
 
     @Test
@@ -69,7 +68,7 @@ public class CidadeServiceTest {
     @Test
     @DisplayName("deve encontrar uma cidade ao buscar por nome")
     public void buscarCidadePorNome(){
-        Cidade saoLuis = generateCidade();
+        Cidade saoLuis = cidadeMock();
 
         when(repository.findByNome(anyString()))
                 .thenReturn(Optional.of(saoLuis));
@@ -113,15 +112,15 @@ public class CidadeServiceTest {
                 .withMessage("NÃO EXISTE UM CADASTRO DE CIDADE COM CÓDIGO " +idINvalid);
     }
 
-    private Cidade generateCidade(){
-
-        Cidade saoLuis = new Cidade();
-        ReflectionTestUtils.setField(saoLuis, "id", 1L);
-        saoLuis.setNome(SAO_LUIS);
-        saoLuis.setTaxa(30.50);
-        saoLuis.setUF("MA");
-
-        return saoLuis;
-    }
+//    private Cidade generateCidade(){
+//
+//        Cidade saoLuis = new Cidade();
+//        ReflectionTestUtils.setField(saoLuis, "id", 1L);
+//        saoLuis.setNome(SAO_LUIS);
+//        saoLuis.setTaxa(30.50);
+//        saoLuis.setUF("MA");
+//
+//        return saoLuis;
+//    }
 
 }
