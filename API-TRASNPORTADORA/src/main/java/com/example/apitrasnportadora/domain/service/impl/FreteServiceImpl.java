@@ -35,7 +35,8 @@ public class FreteServiceImpl implements FreteService {
     public List<Frete> fretesDoCliente(Cliente cliente) {
         List<Frete> frestes = repository.findByCliente_Id(cliente.getId())
                 .stream()
-                .sorted(Comparator.comparing(Frete :: getValor) )
+                .sorted(Comparator.comparing(Frete :: getValor)
+                        .reversed())
                 .collect(Collectors.toList());
 
         return frestes;
@@ -72,13 +73,6 @@ public class FreteServiceImpl implements FreteService {
         return repository.findAll().stream()
                 .max(Comparator.comparingDouble(Frete :: getValor))
                 .get();
-    }
-
-    @Override
-    public Cidade moda() {
-
-
-        return null;
     }
 
 

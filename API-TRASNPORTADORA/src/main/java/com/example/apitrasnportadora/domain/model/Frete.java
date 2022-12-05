@@ -1,5 +1,6 @@
 package com.example.apitrasnportadora.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -17,6 +18,7 @@ public class Frete {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private Cliente cliente;
 
     @ManyToOne

@@ -16,5 +16,5 @@ public interface FreteService {
 
     Frete freteMaiorValor();
 
-    Cidade moda();
+//    Cidade moda();
 }
