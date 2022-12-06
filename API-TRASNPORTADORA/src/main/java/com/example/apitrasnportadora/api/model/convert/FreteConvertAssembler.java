@@ -19,13 +19,13 @@ public class FreteConvertAssembler {
     @Autowired
     private ModelMapper modelMapper;
 
-    public FreteResponse convert_para_DTO(Frete locacao){
-        return modelMapper.map(locacao, FreteResponse.class);
+    public FreteResponse convert_para_DTO(Frete frete){
+        return modelMapper.map(frete, FreteResponse.class);
     }
 
-    public List<FreteResponse> convert_Lista_para_DTO( List<Frete> locacoes) {
-        return locacoes.stream()
-                .map(locacao -> convert_para_DTO(locacao))
+    public List<FreteResponse> convert_Lista_para_DTO( List<Frete> fretes) {
+        return fretes.stream()
+                .map(frete -> convert_para_DTO(frete))
                 .collect(Collectors.toList());
     }
 

@@ -1,12 +1,14 @@
 package com.example.apitrasnportadora.builderObjects;
 
+import com.example.apitrasnportadora.api.model.dto.input.FreteInput;
+import com.example.apitrasnportadora.api.model.dto.input.referenceId.CidadeIdInput;
+import com.example.apitrasnportadora.api.model.dto.input.referenceId.ClientIdInput;
+import com.example.apitrasnportadora.api.model.dto.response.FreteResponse;
 import com.example.apitrasnportadora.domain.model.Cliente;
 import com.example.apitrasnportadora.domain.model.Frete;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 import static com.example.apitrasnportadora.builderObjects.CidadeBuilder.cidadeMock;
 import static com.example.apitrasnportadora.builderObjects.ClienteBuilder.*;
@@ -53,5 +55,38 @@ public class FreteBuilder {
 
         return fretes;
     }
+
+    public static FreteInput getFreteInputBuilder(){
+        FreteInput input = new FreteInput();
+        input.setCidade(new CidadeIdInput(1L));
+        input.setDescricao("Segundo frete");
+        input.setPeso(80.5);
+        input.setValor(600.0);
+        input.setCliente(new ClientIdInput(1L));
+
+        return input;
+    }
+
+    public static FreteResponse getFreteResponse(String descricao){
+        FreteResponse freteResponse = new FreteResponse();
+        freteResponse.setDescricao(descricao);
+        freteResponse.setPeso(80.1);
+        freteResponse.setValor(100.5);
+        return freteResponse;
+    }
+
+    public static List<FreteResponse> getListFreteResponse(){
+        List<FreteResponse> responseList = new ArrayList<>();
+        FreteResponse frete1 = getFreteResponse("Segundo frete");
+
+        FreteResponse frete2 = getFreteResponse("Terceiro frete");
+
+        responseList.add(frete1);
+        responseList.add(frete2);
+
+        return responseList;
+    }
+
+
 
 }

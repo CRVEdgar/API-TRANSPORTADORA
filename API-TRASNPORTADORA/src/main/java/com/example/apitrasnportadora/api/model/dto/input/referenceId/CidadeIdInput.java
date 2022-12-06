@@ -7,6 +7,13 @@ public class CidadeIdInput {
     @NotNull
     private Long id;
 
+    public CidadeIdInput() {
+    }
+
+    public CidadeIdInput(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

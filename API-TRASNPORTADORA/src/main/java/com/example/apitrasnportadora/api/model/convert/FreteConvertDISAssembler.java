@@ -19,11 +19,11 @@ public class FreteConvertDISAssembler {
     private ModelMapper modelMapper;
 
     //recebe um objeto input e convert para um objeto do modelo de domínio
-    public Frete convert_paraClienteDomain(FreteInput locacaoInput){
+    public Frete convert_paraFreteDomain(FreteInput locacaoInput){
         return modelMapper.map(locacaoInput, Frete.class);
     }
 
-    public void copy_paraLocacaoDomain(FreteInput locacaoInput, Frete locacao){
+    public void copy_paraFreteDomain(FreteInput locacaoInput, Frete locacao){
         locacao.setCliente(new Cliente());
         locacao.setCidade(new Cidade());
 
